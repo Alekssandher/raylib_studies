@@ -1,5 +1,9 @@
 #include "../world/obstacle.h"
 #include "stdlib.h"
+
+extern Texture2D kuruminhaTexture;
+extern Texture2D reiTexture;
+
 void InitObstacles(Obstacle **obstacles, int *count) {
     *count = 4;
     *obstacles = (Obstacle*)malloc(sizeof(Obstacle) * (*count));
@@ -14,9 +18,37 @@ void FreeObstacles(Obstacle *obstacles) {
     free(obstacles);
 }
 
-void DrawObstacle(Obstacle *obstacle) {
-    DrawCube(obstacle->position, obstacle->size.x, obstacle->size.y, 
-             obstacle->size.z, (Color){ 150, 200, 200, 255 });
-    DrawCubeWires(obstacle->position, obstacle->size.x, obstacle->size.y, 
-                  obstacle->size.z, DARKBLUE);
+Mesh cubeMesh;
+Model texturedCube;
+Model reiCube;
+
+void InitResources() {
+    cubeMesh = GenMeshCube(1.0f, 1.0f, 1.0f);    // cubo unitário
+    texturedCube = LoadModelFromMesh(cubeMesh);
+    reiCube = LoadModelFromMesh(cubeMesh);
+    
+    // aplica textura ao material
+    texturedCube.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = kuruminhaTexture;
+    reiCube.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = reiTexture;
+
 }
+
+void DrawObstacle(Obstacle *obstacle) {
+
+    Vector3 pos = obstacle->position;
+    Vector3 size = obstacle->size;
+
+    // desenha o cubo texturizado
+    DrawModelEx(
+        texturedCube,
+        pos,                 // posição
+        (Vector3){1,0,0},    // eixo de rotação
+        0.0f,                // ângulo
+        size,                // escala para o tamanho desejado
+        WHITE
+    );
+
+    // opcional: esqueleto
+    DrawCubeWires(pos, size.x, size.y, size.z, DARKBLUE);
+}
+

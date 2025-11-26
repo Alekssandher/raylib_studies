@@ -20,7 +20,8 @@ void InitGame(Game *game) {
     
     // Initialize obstacles
     InitObstacles(&game->obstacles, &game->obstacleCount);
-    
+    InitResources();
+
     // Initialize sensitivity
     game->sensitivity = (Vector2){ 0.001f, 0.001f };
     
@@ -41,13 +42,10 @@ void UpdateGame(Game *game) {
     bool crouching = IsKeyDown(KEY_LEFT_CONTROL);
     bool jumping = IsKeyPressed(KEY_SPACE);
     
-    // Update player
     UpdatePlayer(&game->player, sideway, forward, jumping, crouching);
     
-    // Update physics
     UpdateBodyPhysics(&game->player.body, GetFrameTime());
     
-    // Resolve collisions
     ResolveAllCollisions(&game->player.body, game->obstacles, game->obstacleCount);
     
     // Resolve test box collision
@@ -86,13 +84,28 @@ void RenderGame(Game *game) {
     
     // Draw test box
     if (game->player.body.isColliding) {
-        DrawCube(game->boxPos, game->boxSize.x, game->boxSize.y, 
-                game->boxSize.z, RED);
+        // DrawCube(game->boxPos, game->boxSize.x, game->boxSize.y, 
+        //         game->boxSize.z, RED);
+
+        DrawModelEx(
+            reiCube,
+            game->boxPos,
+            (Vector3){1,0,0},
+            0.0f,
+            game->boxSize,
+            WHITE
+        );
         DrawCubeWires(game->boxPos, game->boxSize.x, game->boxSize.y, 
-                     game->boxSize.z, BLACK);
+                     game->boxSize.z, GREEN);
     } else {
-        DrawCube(game->boxPos, game->boxSize.x, game->boxSize.y, 
-                game->boxSize.z, GREEN);
+        DrawModelEx(
+            texturedCube,
+            game->boxPos,
+            (Vector3){1,0,0},
+            0.0f,
+            game->boxSize,
+            WHITE
+        );
         DrawCubeWires(game->boxPos, game->boxSize.x, game->boxSize.y, 
                      game->boxSize.z, DARKGREEN);
     }

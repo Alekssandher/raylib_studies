@@ -8,10 +8,15 @@ typedef struct {
     Vector3 size;
 } Obstacle;
 
+extern Mesh   cubeMesh;
+extern Model  texturedCube;
+extern Model reiCube;
+
 void InitObstacles(Obstacle **obstacles, int *count);
 
 void FreeObstacles(Obstacle *obstacles);
 
 void DrawObstacle(Obstacle *obstacle);
+void InitResources();
 
 #endif 

@@ -22,6 +22,6 @@
 
 #define NORMALIZE_INPUT 0
 
-#define LOGS
+// #define LOGS
 
 #endif
