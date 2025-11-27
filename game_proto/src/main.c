@@ -24,9 +24,9 @@ int main(void) {
     
     Game game;
     
-    kuruminhaTexture = ResolveImage("game_proto/assets/kuruminha-imp.jpg");
+    kuruminhaTexture = ResolveImage("game_proto/assets/planalto.jpeg");
 
-    reiTexture = ResolveImage("game_proto/assets/rei.png");
+    reiTexture = ResolveImage("game_proto/assets/kuruminha-imp.jpg");
 
     InitGame(&game);
 

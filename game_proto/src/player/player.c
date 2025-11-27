@@ -6,7 +6,7 @@
 #endif
 
 void InitPlayer(Player *player) {
-    InitBody(&player->body, (Vector3){0, 0, 0}, (Vector3){1.0f, 2.0f, 1.0f});
+    InitBody(&player->body, (Vector3){0, 0, 0}, (Vector3){1.0f, 3.0f, 1.0f});
     player->lookRotation = (Vector2){0, 0};
     player->headTimer = 0.0f;
     player->walkLerp = 0.0f;

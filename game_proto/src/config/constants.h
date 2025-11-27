@@ -6,7 +6,7 @@
 #define NORMAL_SPEED    4.0f
 #define CROUCH_SPEED    2.0f
 #define SPRINT_MULT     2.1f
-#define JUMP_FORCE      15.0f
+#define JUMP_FORCE      135.0f
 #define MAX_ACCEL       150.0f
 
 // Drag constants
